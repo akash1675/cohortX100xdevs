@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const adminRouter = Router();
-const {adminModel} = require("../db");
+const { adminModel } = require("../db");
 
 
 
