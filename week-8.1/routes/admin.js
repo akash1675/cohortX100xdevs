@@ -41,7 +41,8 @@ adminRouter.get("/course/bulk", function (req, resp) {
 
 
 module.exports = {
-    adminRouter : adminRouter
+    adminRouter : adminRouter,
+    adminModel:adminModel
 }
 
 
