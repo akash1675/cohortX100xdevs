@@ -1,0 +1,75 @@
+<html>
+
+<head>
+    <title>Auth Website</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+
+    <script>
+        async function signup() {
+            const username = document.getElementById("signup-username").value;
+            const password = document.getElementById("signup-password").value;
+
+            await axios.post("http://localhost:5000/signUp", {
+                username: username,
+                password: password
+            })
+
+            alert("you signed up!");
+        }
+
+        async function signin() {
+            const username = document.getElementById("signin-username").value;
+            const password = document.getElementById("signin-password").value;
+
+            const response = await axios.post("http://localhost:5000/signIn", {
+                username: username,
+                password: password
+            })
+
+            localStorage.getItem("token", response.data.token);
+
+            alert("you signed in!");
+        }
+
+        async function getUserInformation() {
+            const response = await axios.get("http://localhost:5000/me", {
+                headers: {
+                    token: localStorage.getItem("token")
+                }
+            })
+            document.getElementById("Information").innerHTML = "username " + response.data.username +" "+"password "+ response.data.password;
+        }
+
+        getUserInformation();
+    </script>
+</head>
+
+<body>
+    <div>
+        Signup
+        <input id="signup-username" type="text" name="username" placeholder="username">
+        <input id="signup-password" type="password" name="password" placeholder="password">
+
+        <button onclick="signup()">Submit</button>
+    </div>
+
+    <div>
+        Signin
+        <input id="signin-username" type="text" name="username" placeholder="username">
+        <input id="signin-password" type="password" name="password" placeholder="password">
+
+        <button onclick="signin()">Submit</button>
+    </div>
+
+    <div>
+        user Information:
+        <div id="Information"></div>
+    </div>
+
+    <div>
+        <button onclick="logout()">logout</button>
+    </div>
+
+</body>
+
+</html>
