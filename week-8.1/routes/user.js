@@ -2,6 +2,8 @@
 // const Router = express.Router;
 const {Router} = require("express");
 const { userModel } = require("../db");
+const jwt = require("jsonwebtoken");
+const JWT_SECRET ="ANTIKABANTI";
 
 
 const userRouter = Router();
@@ -18,16 +20,39 @@ userRouter.post("/signup", async function (req, resp) {
         firstName,
         lastName
     })
+
+
     resp.json({
         message: " signup endpoint"
     })
 })
 
 
-userRouter.post("/signin", function (req, resp) {
-    resp.json({
+userRouter.post("/signin", async function (req, resp) {
+  const {email, password} = req.body;
+  
+  const user = await userModel.find({
+    email,
+    password
+  });
 
+  if(user){
+    const token = jwt.sign({
+        id : user._id
+    }, JWT_SECRET)
+
+    // you can use cookie login
+
+    resp.json({
+        token:token
     })
+  }
+  else{
+    resp.status(403).json({
+        
+    })
+  }
+
 })
 
 
@@ -40,5 +65,6 @@ userRouter.get("/purchases", function (Req, resp) {
 
 
 module.exports = {
-    userRouter : userRouter
+    userRouter : userRouter,
+    userModel:userModel
 }
