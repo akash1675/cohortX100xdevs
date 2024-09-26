@@ -1,9 +1,9 @@
 // const express = require("express");
 // const Router = express.Router;
 const {Router} = require("express");
-const { userModel } = require("../db");
 const jwt = require("jsonwebtoken");
-const JWT_SECRET ="ANTIKABANTI";
+const { userModel } = require("../db");
+const {JWT_USER_PASSWORD} = require("../config");
 
 
 const userRouter = Router();
@@ -23,7 +23,7 @@ userRouter.post("/signup", async function (req, resp) {
 
 
     resp.json({
-        message: " signup endpoint"
+        message: " signup succesed"
     })
 })
 
@@ -31,25 +31,24 @@ userRouter.post("/signup", async function (req, resp) {
 userRouter.post("/signin", async function (req, resp) {
   const {email, password} = req.body;
   
-  const user = await userModel.find({
-    email,
-    password
+  const user = await userModel.findOne({
+    email : email,
+    password : password
   });
 
   if(user){
     const token = jwt.sign({
         id : user._id
-    }, JWT_SECRET)
+    }, JWT_USER_PASSWORD)
 
     // you can use cookie login
-
     resp.json({
         token:token
     })
   }
   else{
     resp.status(403).json({
-        
+        message : "incorrect credentials"
     })
   }
 
@@ -66,5 +65,4 @@ userRouter.get("/purchases", function (Req, resp) {
 
 module.exports = {
     userRouter : userRouter,
-    userModel:userModel
 }
