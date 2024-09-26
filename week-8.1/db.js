@@ -1,7 +1,4 @@
-// const {Schema, default: mongoose} = require("mongoose");
 const mongoose = require("mongoose");
-mongoose.connect("mongodb+srv://captaink_akash:rahul1675@100xdevs.xtw0e.mongodb.net/course-app");
-
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
 

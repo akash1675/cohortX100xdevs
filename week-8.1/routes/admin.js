@@ -1,8 +1,8 @@
 const { Router } = require("express");
 const jwt = require("jsonwebtoken");
 const { adminModel, courseModel } = require("../db");
-const {JWT_ADMIN_PASSWORD} = require("../config");
-const {adminMiddleware} = require("../middleware");
+const { JWT_ADMIN_PASSWORD } = require("../config");
+const { adminMiddleware } = require("../middleware/admin");
 
 const adminRouter = Router();
 
@@ -34,15 +34,15 @@ adminRouter.post("/signin", async function (req, resp) {
     if (admin) {
         const token = jwt.sign({
             id: admin._id
-        },JWT_ADMIN_PASSWORD)
+        }, JWT_ADMIN_PASSWORD)
 
         resp.json({
-            token : token
+            token: token
         })
     }
     else {
         resp.json({
-            message:"Incorrect credential"
+            message: "Incorrect credential"
         })
     }
 
@@ -59,26 +59,51 @@ adminRouter.post("/course", adminMiddleware, async function (req, resp) {
         description,
         imageUrl,
         price,
-        creatorId : adminId
+        creatorId: adminId
     })
     resp.json({
-        message : "course created",
+        message: "course created",
         courseId: adminId
     })
 })
 
 
-adminRouter.put("/course", function (req, resp) {
-    resp.json({
+adminRouter.put("/course", async function (req, resp) {
+    const adminId = req.userId;
 
+    const { title, description, imageUrl, price, courseId } = req.body;
+
+    const course = await courseModel.updateOne(
+        {
+            _id: courseId,
+            creatorId: adminId
+        },
+        {
+            title,
+            description,
+            imageUrl,
+            price,
+            creatorId: adminId
+        })
+    resp.json({
+        message: "course updated",
+        courseId: course._id
     })
+
 })
 
 
-adminRouter.get("/course/bulk", function (req, resp) {
-    resp.json({
+adminRouter.get("/course/bulk", adminMiddleware, async function (req, resp) {
+    const adminId = req.userId;
 
+    const courses = await courseModel.find({
+        creatorId: adminId
+    });
+    resp.json({
+        message: "course updated",
+        courses
     })
+
 })
 
 
