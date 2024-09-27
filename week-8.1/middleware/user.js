@@ -3,7 +3,7 @@ const {JWT_USER_PASSWORD} = require("../config");
 
 
 function userMiddleware(req, resp , next ){
-    const token  = resp.headers.token;
+    const token  = req.headers.token;
     const decoder = jwt.verify(token , JWT_USER_PASSWORD);
 
     if(decoder){

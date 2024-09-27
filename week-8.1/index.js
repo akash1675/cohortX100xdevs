@@ -4,7 +4,7 @@ const dotenv = require('dotenv')
 dotenv.config({path:__dirname+'/.env'})
 
 
-console.log(process.env.MONGO_URL); // just checking the mongo db url
+console.log(process.env.MONGO_URL); // just checking the mongo db ur
 
 
 

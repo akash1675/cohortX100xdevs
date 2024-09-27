@@ -68,7 +68,7 @@ adminRouter.post("/course", adminMiddleware, async function (req, resp) {
 })
 
 
-adminRouter.put("/course", async function (req, resp) {
+adminRouter.put("/course", adminMiddleware, async function (req, resp) {
     const adminId = req.userId;
 
     const { title, description, imageUrl, price, courseId } = req.body;
@@ -79,16 +79,17 @@ adminRouter.put("/course", async function (req, resp) {
             creatorId: adminId
         },
         {
-            title,
-            description,
-            imageUrl,
-            price,
-            creatorId: adminId
+            title: title,
+            description: description,
+            imageUrl: imageUrl,
+            price: price
         })
+
     resp.json({
         message: "course updated",
         courseId: course._id
     })
+
 
 })
 
