@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <button onclick="onButtonPress()" id="btn" >cnt 0</button>
+
+
+    <script>
+        function onButtonPress(){
+            const currValue = document.getElementById("btn").innerHTML;
+            // console.log(currValue.split(" "));
+            const currCounter = currValue.split(" ")[1];
+            const newCounter = parseInt(currCounter)+1;
+            document.getElementById("btn").innerHTML = "cnt "+newCounter;
+        }
+    </script>
+    
+</body>
+</html>
