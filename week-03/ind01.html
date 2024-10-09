@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <input type="text" name="input" id="input-todo" placeholder="add todo here">
+        <button onclick="addTodo()" class="add-todo">Add</button>
+        <p id="display"></p>
+    </div>
+
+    <script>
+        let ind = 1;
+        function deleteTodo(index) {
+            const par = document.getElementById("todo-" + index);
+            par.parentNode.removeChild(par);
+        }
+
+        function addTodo() {
+            const data = document.getElementById("input-todo");
+            const value = data.value;
+            console.log(value);
+            const creation = document.createElement("div");
+            creation.setAttribute("id", "todo-" + ind);
+
+            creation.innerHTML = `<div>${value}</div><button onclick="deleteTodo(${ind})">DELETE</button>`
+            ind++;
+            document.querySelector("body").appendChild(creation);
+        }
+    </script>
+
+</body>
+
+</html>

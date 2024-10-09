@@ -11,7 +11,9 @@ function addtodo(){
     const divEl = document.createElement("div");
     divEl.innerHTML="<div class='parent'><div class='add'>"+data+"</div> <button onclick='deletetodo()' class='deletebtn'>Delete</button> </div>";
 
-    const dis = document.querySelector("body");
-    dis.appendChild(divEl);
+    // const dis = document.querySelector("body");
+    // dis.appendChild(divEl);
+
+    document.querySelector("body").appendChild(divEl);
 }
 
