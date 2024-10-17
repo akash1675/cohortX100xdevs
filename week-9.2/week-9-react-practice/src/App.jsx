@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react'
 
 function App() {
@@ -40,6 +41,7 @@ function Counter(props) {
     return function(){
       console.log("cleanup inside second effect")
     }
+
   }, [props.count])
 
 
