@@ -1,5 +1,5 @@
 
-/************ 
+/********************************* 
 ----------> USEFETCH USE CASE
 
 import { useFetch } from "./hooks/useFetch"
@@ -38,7 +38,11 @@ export default App
 
 *****************************************/
 
-//USEPREV USE CASE
+
+
+
+/***************************************** 
+------------------->USEPREV USE CASE
 
 import {useState} from "react"
 
@@ -64,3 +68,6 @@ const App = () => {
 }
 
 export default App
+
+
+***************************************************/
