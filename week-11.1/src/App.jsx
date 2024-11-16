@@ -41,6 +41,8 @@ export default App
 
 
 
+
+
 /***************************************** 
 ------------------->USEPREV USE CASE
 
@@ -71,3 +73,32 @@ export default App
 
 
 ***************************************************/
+
+import { useRef } from "react";
+
+
+function useDebounce(orgFn){
+  const currentClock = useRef();
+
+  const fn = ()=> {
+    clearTimeout(currentClock.current);
+    currentClock.current = setTimeout(orgFn, 500);
+  }
+  return fn;
+}
+
+function Debounce(){
+  function sendDataToBackend(){
+    fetch("api.amazon.com/search");
+  }
+
+  const debouncFn = useDebounce(sendDataToBackend);
+
+  return (
+    <>
+    <input type="text" onChange={debouncFn}></input>
+    </>
+  )
+}
+
+export default Debounce
