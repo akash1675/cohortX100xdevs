@@ -1,109 +1,21 @@
-
-
-
-//---------------without Recoil------------------
-
-// import { useState } from 'react'
-// import './App.css'
-
-
-
-// function App() {
-  
-
-//   return (
-//     <>
-//     <Counter/>
-//     </>
-//   )
-// }
-
-// function Counter(){
-//   const [count, setCount] = useState(0);
-//   return <>
-//   {count}
-//   <Increase setCount={setCount}/>
-//   <Decrease setCount={setCount}/>
-//   </>
-// }
-
-
-// function Increase({setCount}){
-//   function increase(){
-//     setCount(c=>c+1); 
-//   }
-//   return <div>
-//     <button onClick={increase}>Increase</button>
-//   </div>
-// }
-
-// function Decrease({setCount}){
-//   function decrease(){
-//     setCount(c=>c-1); 
-//   }
-//   return <div>
-//     <button onClick={decrease} >decrease</button>
-//   </div>
-// }
-
-// export default App
-
-
-
-//---------------wit Recoil------------------
-
-
+import React from 'react'
+// import WithoutRecoil from './components/Contextapi'
+import UseRecoil from './components/UseRecoil'
 import './App.css'
-import {RecoilRoot, useRecoilValue, useSetRecoilState} from 'recoil';
-import { counterAtom } from './store/atoms/counter';
+import UseMemo from './components/UseMemo'
+import UseSelctors from './components/UseSelctors'
 
+const App = () => {
 
-function App() {
-  
 
   return (
-    <>
-    <RecoilRoot>
-      <Counter/>
-    </RecoilRoot>
-    </>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      {/* <WithoutRecoil/> */}
+      {/* <UseRecoil /> */}
+      {/* <UseMemo/> */}
+      <UseSelctors/>
+    </div>
   )
 }
-
-function Counter(){
-  return <>
-  <CurrentCounter/>
-  <Increase/>
-  <Decrease/>
-  </>
-}
-
-function CurrentCounter(){
- const count =  useRecoilValue(counterAtom);
-  return <div>
-    {count}
-  </div>
-}
-
-function Increase(){
-  const setCount = useSetRecoilState(counterAtom);
-  function increase(){
-    setCount(c=>c+1); 
-  }
-  return <div>
-    <button onClick={increase}>Increase</button>
-  </div>
-}
-
-function Decrease(){
-  const setCount = useSetRecoilState(counterAtom);
-  function decrease(){
-    setCount(c=>c-1); 
-  }
-  return <div>
-    <button onClick={decrease} >decrease</button>
-  </div>
-}
-
 
 export default App
